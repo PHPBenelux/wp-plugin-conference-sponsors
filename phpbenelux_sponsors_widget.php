@@ -3,11 +3,10 @@
 Plugin Name: PHPBenelux Sponsors
 Version: 1.0
 Plugin URI: http://phpbenelux.eu
-Description: Sponsor plugin 2017
+Description: Sponsor plugin
 Author: Martin de Keijzer
 Author URI: http://phpbenelux.eu/
 */
-
 
 /**
  * Remove bs- css class prefixes to enable bootstrap horizontal layout
@@ -20,7 +19,9 @@ function phpbenelux_sponsors_widget_init() {
 
 class phpbenelux_sponsors_widget extends WP_Widget
 {
-
+	/**
+	 * phpbenelux_sponsors_widget constructor.
+	 */
     public function __construct()
     {
         $widget_details = array(
@@ -32,27 +33,40 @@ class phpbenelux_sponsors_widget extends WP_Widget
 
     }
 
+	/**
+	 * FunctionDescription
+	 *
+	 * @param array $instance
+	 *
+	 * @return string|void
+	 */
     public function form( $instance ) {
         // Backend Form
     }
 
+	/**
+	 * FunctionDescription
+	 *
+	 * @param array $new_instance
+	 * @param array $old_instance
+	 *
+	 * @return array
+	 */
     public function update( $new_instance, $old_instance ) {
         return $new_instance;
     }
 
+	/**
+	 * FunctionDescription
+	 *
+	 * @param array $args
+	 * @param array $instance
+	 */
     public function widget( $args, $instance ) {
-//        if (!isset($_GET['feat'])) {
-//            return;
-//        }
         ?>
         <div class="bs-row sponsors-widget">
             <div class="bs-col-md-5">
-                <header class="post-heading">
-                    <div class="post-title-wrapper">
-                        <h2 class="post-title">Platinum</h2>
-                    </div>
-                </header>
-                <?php echo $this->renderSponsors('platinum', 'bs-col-md-12'); ?>
+                <?php echo $this->renderSponsors('platinum', 'bs-col-md-12', false, 'Platinum'); ?>
             </div>
             <div class="bs-col-md-7">
                 <div class="bs-row">
@@ -61,7 +75,7 @@ class phpbenelux_sponsors_widget extends WP_Widget
                             <h2 class="post-title">Gold</h2>
                         </div>
                     </header>
-                    <?php echo $this->renderSponsors('gold', 'bs-col-md-4'); ?>
+                    <?php echo $this->renderSponsors('gold', 'bs-col-md-4', false, 'Gold'); ?>
                 </div>
                 <div class="bs-row">
                     <header class="post-heading">
@@ -69,7 +83,7 @@ class phpbenelux_sponsors_widget extends WP_Widget
                             <h2 class="post-title">Silver</h2>
                         </div>
                     </header>
-                    <?php echo $this->renderSponsors('silver', 'bs-col-md-3'); ?>
+                    <?php echo $this->renderSponsors('silver', 'bs-col-md-3', false, 'Silver'); ?>
                 </div>
             </div>
             <div class="bs-col-md-12">
@@ -84,6 +98,11 @@ class phpbenelux_sponsors_widget extends WP_Widget
         <?php
     }
 
+	/**
+	 * FunctionDescription
+	 *
+	 * @param $colValue
+	 */
     public function renderCustomSponsors($colValue) {
         $args = array(
             'numberposts'	=> -1,
@@ -101,7 +120,15 @@ class phpbenelux_sponsors_widget extends WP_Widget
         $this->renderQueryResults($the_query, 'custom', $colValue, true);
     }
 
-    public function renderSponsors($type, $colValue, $withlabel = false) {
+	/**
+	 * FunctionDescription
+	 *
+	 * @param        $type
+	 * @param        $colValue
+	 * @param bool   $withLabel
+     * @param string $header
+	 */
+    public function renderSponsors($type, $colValue, $withLabel = false, $header = '') {
         $args = array(
             'numberposts'	=> -1,
             'post_type'		=> 'sponsor',
@@ -110,13 +137,28 @@ class phpbenelux_sponsors_widget extends WP_Widget
         );
         $the_query = new WP_Query( $args );
 
-        $this->renderQueryResults($the_query, $type, $colValue, $withlabel);
+        $this->renderQueryResults($the_query, $type, $colValue, $withLabel, $header);
     }
 
-    protected function renderQueryResults(WP_Query $the_query, $type , $colValue, $withLabel)
+	/**
+	 * FunctionDescription
+	 *
+	 * @param WP_Query $the_query
+	 * @param          $type
+	 * @param          $colValue
+	 * @param          $withLabel
+	 * @param string   $header
+	 */
+    protected function renderQueryResults(WP_Query $the_query, $type , $colValue, $withLabel, $header = '')
     {
         if ($the_query->have_posts()) {
-            ?><div class="bs-row <?=$type?>-logos"><?php
+            ?>
+            <header class="post-heading">
+                <div class="post-title-wrapper">
+                    <h2 class="post-title"><?=$header?>></h2>
+                </div>
+            </header>
+            <div class="bs-row <?=$type?>-logos"><?php
             while ($the_query->have_posts()) {
                 $the_query->the_post();
                 ?>
