@@ -77,11 +77,6 @@ class phpbenelux_sponsors_widget extends WP_Widget
                 </div>
             </div>
             <div class="bs-col-md-12">
-                <header class="post-heading">
-                    <div class="post-title-wrapper">
-                        <h2 class="post-title">Custom</h2>
-                    </div>
-                </header>
                 <?php echo $this->renderCustomSponsors('bs-col-md-4'); ?>
             </div>
         </div>
@@ -107,7 +102,7 @@ class phpbenelux_sponsors_widget extends WP_Widget
         );
         $the_query = new WP_Query( $args );
 
-        $this->renderQueryResults($the_query, 'custom', $colValue, true);
+        $this->renderQueryResults($the_query, 'custom', $colValue, true, 'Custom');
     }
 
 	/**
