@@ -70,19 +70,9 @@ class phpbenelux_sponsors_widget extends WP_Widget
             </div>
             <div class="bs-col-md-7">
                 <div class="bs-row">
-                    <header class="post-heading">
-                        <div class="post-title-wrapper">
-                            <h2 class="post-title">Gold</h2>
-                        </div>
-                    </header>
                     <?php echo $this->renderSponsors('gold', 'bs-col-md-4', false, 'Gold'); ?>
                 </div>
                 <div class="bs-row">
-                    <header class="post-heading">
-                        <div class="post-title-wrapper">
-                            <h2 class="post-title">Silver</h2>
-                        </div>
-                    </header>
                     <?php echo $this->renderSponsors('silver', 'bs-col-md-3', false, 'Silver'); ?>
                 </div>
             </div>
@@ -155,7 +145,7 @@ class phpbenelux_sponsors_widget extends WP_Widget
             ?>
             <header class="post-heading">
                 <div class="post-title-wrapper">
-                    <h2 class="post-title"><?=$header?>></h2>
+                    <h2 class="post-title"><?=$header?></h2>
                 </div>
             </header>
             <div class="bs-row <?=$type?>-logos"><?php
