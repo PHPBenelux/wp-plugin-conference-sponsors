@@ -147,12 +147,14 @@ class phpbenelux_sponsors_widget extends WP_Widget
             while ($the_query->have_posts()) {
                 $the_query->the_post();
                 $sponsorUrl = get_field('direct_url');
+                $hasDirectUrl = true;
                 if (empty($sponsorUrl)) {
                     $sponsorUrl = get_the_permalink();
+                    $hasDirectUrl = false;
                 }
                 ?>
 
-                <a href="<?php echo $sponsorUrl; ?>">
+                <a href="<?php echo $sponsorUrl; ?>"<?php if ($hasDirectUrl) { ?> target="_blank" <?php } ?>>
                     <div class="<?=$colValue?>">
                         <div class="sponsorlogo">
                             <?php
